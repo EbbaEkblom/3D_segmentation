@@ -8,11 +8,12 @@ Dataset configurations:
     :param BACKGROUND_AS_CLASS -> if True, the model treats background as a class
 
 """""
-DATASET_PATH = '/PATH/TO/THE/DATASET'
-TASK_ID = 9
-IN_CHANNELS = 1
-NUM_CLASSES = 1
-BACKGROUND_AS_CLASS = False
+DATASET_PATH = '/home/ebbaek/tumour_segmentation/data/Decathlon_brain/'
+#DATASET_PATH = '/home/ebbaek/tumour_segmentation/data/MICCAI_FeTS2022_TrainingData/'
+TASK_ID = 1
+IN_CHANNELS = 4
+NUM_CLASSES = 4
+BACKGROUND_AS_CLASS = True
 
 
 """""
@@ -27,9 +28,9 @@ Training configurations:
 """""
 TRAIN_VAL_TEST_SPLIT = [0.8, 0.1, 0.1]
 SPLIT_SEED = 42
-TRAINING_EPOCH = 100
+TRAINING_EPOCH = 2
 TRAIN_BATCH_SIZE = 1
 VAL_BATCH_SIZE = 1
 TEST_BATCH_SIZE = 1
 TRAIN_CUDA = True
-BCE_WEIGHTS = [0.004, 0.996]
+BCE_WEIGHTS = None#[0.004, 0.996] #jag kommenterade ut

@@ -95,7 +95,6 @@ class MedicalSegmentationDecathlon(Dataset):
             idx = idx.tolist()
         #Obtaining image name by given index and the mode using meta data
         if self.mode == "train":
-            print(self.train[idx])
             name = self.train[idx]['image'].split('/')[-1]
         elif self.mode == "val":
             name = self.val[idx]['image'].split('/')[-1]
@@ -108,7 +107,6 @@ class MedicalSegmentationDecathlon(Dataset):
         img_object = nib.load(img_path)
         label_object = nib.load(label_path)
         img_array = img_object.get_fdata()
-        print(img_array.shape)
         #Converting to channel-first numpy array
         img_array = np.moveaxis(img_array, -1, 0)
         img_array = img_array[:,:,:,50:52] #jag

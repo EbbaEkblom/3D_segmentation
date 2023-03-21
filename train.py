@@ -4,8 +4,8 @@ from config import (
     TRAINING_EPOCH, NUM_CLASSES, IN_CHANNELS, BCE_WEIGHTS, BACKGROUND_AS_CLASS, TRAIN_CUDA
 )
 from torch.nn import CrossEntropyLoss
-from dataset import get_train_val_test_Dataloaders
-#from dataset_fets import get_train_val_test_Dataloaders
+#from dataset import get_train_val_test_Dataloaders
+from dataset_fets import get_train_val_test_Dataloaders
 from torch.optim import Adam
 from torch.utils.tensorboard import SummaryWriter
 from unet3d import UNet3D
@@ -55,14 +55,12 @@ for epoch in range(TRAINING_EPOCH):
         optimizer.step()
 
         train_loss += loss.item()
-        break
         c = c+1
     print('Epoch {}, train loss: {}'.format(epoch, train_loss))
     
     valid_loss = 0.0
     model.eval()
     for data in val_dataloader:
-        print('!')
         image, ground_truth = data['image'], data['label']
         image = image.to('cuda')
         ground_truth = ground_truth.to('cuda')

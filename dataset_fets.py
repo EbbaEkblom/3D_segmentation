@@ -71,10 +71,15 @@ class BrainTumour3DSegmentation(Dataset):
 
         #samples = self.meta["training"]
         samples = os.listdir(self.dir)
-        shuffle(samples)
+        samples.remove('.DS_Store')
+        samples.remove('partitioning_1.csv')
+        samples.remove('partitioning_2.csv')
+        samples.remove('README.md')
+
         self.train = samples[0:train_val_test[0]]
         self.val = samples[train_val_test[0]:train_val_test[0] + train_val_test[1]]
         self.test = samples[train_val_test[1]:train_val_test[1] + train_val_test[2]]
+        #.DS_Store/.DS_Store_seg.nii
 
     def set_mode(self, mode):
         self.mode = mode
@@ -89,6 +94,8 @@ class BrainTumour3DSegmentation(Dataset):
         return self.meta["numTraining"]
 
     def __getitem__(self, idx):
+        volume_size = 30
+
         # order: FLAIR, T1w, t1gd (t1ce), t2w
         if torch.is_tensor(idx):
             idx = idx.tolist()
@@ -115,7 +122,12 @@ class BrainTumour3DSegmentation(Dataset):
 
         #Converting to channel-first numpy array
         img_array = np.moveaxis(img_array, -1, 0)
-        label_array = np.moveaxis(label_array, -1, 0)
+        #label_array = np.moveaxis(label_array, -1, 0)
+
+        # Extract subvolume
+        r = np.random.randint(0, img_array.shape[-1] - volume_size)
+        img_array = img_array[:,:,:,r : r + volume_size]
+        label_array = label_array[:,:,r : r + volume_size]
         proccessed_out = {'name': name, 'image': img_array, 'label': label_array} 
         if self.transform:
             if self.mode == "train":

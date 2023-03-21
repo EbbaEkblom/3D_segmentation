@@ -8,8 +8,8 @@ Dataset configurations:
     :param BACKGROUND_AS_CLASS -> if True, the model treats background as a class
 
 """""
-DATASET_PATH = '/home/ebbaek/tumour_segmentation/data/Decathlon_brain/'
-#DATASET_PATH = '/home/ebbaek/tumour_segmentation/data/MICCAI_FeTS2022_TrainingData/'
+#DATASET_PATH = '/home/ebbaek/tumour_segmentation/data/Decathlon_brain/'
+DATASET_PATH = '/home/ebbaek/tumour_segmentation/data/MICCAI_FeTS2022_TrainingData/'
 TASK_ID = 1
 IN_CHANNELS = 4
 NUM_CLASSES = 4
